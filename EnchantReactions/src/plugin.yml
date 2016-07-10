@@ -1,0 +1,29 @@
+name: EnchantifulReactions
+version: Beta 0.0.1
+main: me.mcnumi.EnchantifulReactions
+author: MCnumi
+description: Adds tons of reactions between vanilla enchantments, and custom enchantments!
+permission-message: &noperms "§cError: §fNo permission!"                                      
+ #####                                                   
+#     #  ####  #    # #    #   ##   #    # #####   ####  
+#       #    # ##  ## ##  ##  #  #  ##   # #    # #      
+#       #    # # ## # # ## # #    # # #  # #    #  ####  
+#       #    # #    # #    # ###### #  # # #    #      # 
+#     # #    # #    # #    # #    # #   ## #    # #    # 
+ #####   ####  #    # #    # #    # #    # #####   ####                                                     
+commands:
+  erinfo:
+    description: Opens the info GUI
+    permission: enchantiful.erinfo
+    permission-message: *noperms
+######                                                              
+#     # ###### #####  #    # #  ####   ####  #  ####  #    #  ####
+#     # #      #    # ##  ## # #      #      # #    # ##   # #
+######  #####  #    # # ## # #  ####   ####  # #    # # #  #  ####
+#       #      #####  #    # #      #      # # #    # #  # #      #
+#       #      #   #  #    # # #    # #    # # #    # #   ## #    #
+#       ###### #    # #    # #  ####   ####  #  ####  #    #  ####
+permissions:
+  enchantiful.erinfo:
+    description: Access info on all reactions
+    default: true

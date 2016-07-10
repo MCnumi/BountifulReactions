@@ -1,0 +1,53 @@
+# Write true or false if you want them enabled or disabled.
+Enabled-reactions:
+    Smite-VS-BlastProtection: true
+    Looting-VS-Protection: true
+    Test: true
+# Check to true or false if you want cooldowns to be enabled
+## WARNING: if one reaction is true in "Enabled-cooldowns" and ##
+## "Enabled-chance" cooldowns will take priority! ##
+Enabled-cooldowns:
+    Smite-VS-BlastProtection: true
+    Looting-VS-Protection: true
+    Test: true
+# Check to true of false if you want chances to be enabled
+## WARNING: if one reaction is true in "Enabled-cooldowns" and ##
+## "Enabled-chance" cooldowns will take priority! ##
+Enabled-chance:
+    Smite-VS-BlastProtection: false
+    Looting-VS-Protection: false
+    Test: false
+# Write the chance you want for each reaction. 
+# (ex: 10 = 1/10, 100 = 1/100, ect.)
+Reaction-chance:
+    Smite-VS-BlastProtection: 10
+    Looting-VS-Protection: 10
+    Test: 10
+# Write how long it should take for certain reaction cooldowns  
+# (In seconds.)  
+Cooldown-times:
+    Smite-VS-BlastProtection: 10
+    Looting-VS-Protection: 10
+    Test: 10
+# Whether or not particles should be enabled. write true of false    
+Enabled-particles:
+    Looting-VS-Protection: true
+    Test: true
+# Whether or not messages should appear in your action bar
+## WARNING: if one reaction is true in "Enabled-actionbar" and ##
+## "Enabled-chat" actionbar will take priority! ##
+Enabled-actionbar:
+    Smite-VS-BlastProtection: false
+    Looting-VS-Protection: false
+    Test: false	
+# Whether or not messages should appear in chat
+## WARNING: if one reaction is true in "Enabled-actionbar" and ##
+## "Enabled-chat" actionbar will take priority! ##
+Enabled-chat:
+    Smite-VS-BlastProtection: true
+    Looting-VS-Protection: true
+    Test: true  
+# Set the time in seconds for implosion time
+# (Only applies to Smite-VS-BlastProtection)
+Implosion-time:
+    Smite-VS-BlastProtection: 10
