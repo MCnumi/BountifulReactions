@@ -130,7 +130,7 @@ public class LootingVSProtection implements Listener{
 											particleLoc.add(x,y,z);
 											
 											PacketPlayOutWorldParticles packet = new PacketPlayOutWorldParticles(
-													EnumParticle.SMOKE_LARGE,
+													EnumParticle.SMOKE_NORMAL,
 													true, (float) particleLoc.getX(), (float) particleLoc.getY(),
 													(float) particleLoc.getZ(), 0, 0, 0, 0, 2, null);	        
 											

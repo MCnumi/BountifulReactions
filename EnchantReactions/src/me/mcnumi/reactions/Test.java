@@ -90,7 +90,7 @@ public class Test implements Listener{
 							double z = r*Math.sin(theta);
 							particleLoc.add(x,y,z);
 							PacketPlayOutWorldParticles packet = new PacketPlayOutWorldParticles(
-									EnumParticle.SMOKE_LARGE, true, (float) particleLoc.getX(), (float) particleLoc.getY(),
+									EnumParticle.SMOKE_NORMAL, true, (float) particleLoc.getX(), (float) particleLoc.getY(),
 									(float) particleLoc.getZ(), 0, 0, 0, 0, 2, null);	        
 							
 		                    	for (Entity p : damagerLoc.getWorld().getNearbyEntities(
