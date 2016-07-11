@@ -10,7 +10,6 @@ import me.mcnumi.utils.DamageeInfo;
 import me.mcnumi.utils.DamagerInfo;
 import me.mcnumi.utils.Lang;
 import me.mcnumi.utils.PacketUtils;
-import net.minecraft.server.v1_9_R2.EntityHuman;
 import net.minecraft.server.v1_9_R2.EnumParticle;
 import net.minecraft.server.v1_9_R2.PacketPlayOutWorldParticles;
 
@@ -109,6 +108,7 @@ public class Test implements Listener{
 				new BukkitRunnable() {		
 					double phi = 0;
 					Location particleLoc = damagerLoc; 
+					PacketPlayOutWorldParticles packet;
 					@Override
 					public void run() {
 						phi += Math.PI/10;
@@ -117,20 +117,19 @@ public class Test implements Listener{
 							double x = r*Math.cos(theta);
 							double y = r*Math.cos(phi)*-1;
 							double z = r*Math.sin(theta);
-							particleLoc.add(x,y,z);
-							PacketPlayOutWorldParticles packet = new PacketPlayOutWorldParticles(
+							particleLoc.add(x,y,z);        							
+							packet = new PacketPlayOutWorldParticles(
 									EnumParticle.SMOKE_NORMAL, true, (float) particleLoc.getX(), (float) particleLoc.getY(),
-									(float) particleLoc.getZ(), 0, 0, 0, 0, 2, null);	        
-							
+									(float) particleLoc.getZ(), 0, 0, 0, 0, 2, null);
 		                    	for (Entity p : damagerLoc.getWorld().getNearbyEntities(
 		                    			damagerLoc, (float) particleLoc.getX(), (float) particleLoc.getY(),
-		                    			(float) particleLoc.getZ())) { //fix this
+		                    			(float) particleLoc.getZ())) { 
 		                    		
 		                    		if (p instanceof Player) { 
 		                    		((CraftPlayer)p).getHandle().playerConnection.sendPacket(packet); 
 		                    		} 
 		                    	}							
-		                    	damagerLoc.subtract(x,y,z);
+		                    	particleLoc.subtract(x,y,z);
 						}
 						
 						if (phi > 1*Math.PI) {
