@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.Random;
 
 import me.mcnumi.EnchantifulReactions;
+import me.mcnumi.utils.Cooldowns;
 import me.mcnumi.utils.DamageeInfo;
 import me.mcnumi.utils.DamagerInfo;
 import me.mcnumi.utils.Lang;
 import me.mcnumi.utils.PacketUtils;
+import net.minecraft.server.v1_9_R2.EntityHuman;
 import net.minecraft.server.v1_9_R2.EnumParticle;
 import net.minecraft.server.v1_9_R2.PacketPlayOutWorldParticles;
 
@@ -33,6 +35,9 @@ public class Test implements Listener{
 	DamagerInfo damagerInfo = new DamagerInfo();
 	DamageeInfo damageeInfo = new DamageeInfo();
 	PacketUtils packetUtils = new PacketUtils();
+	Cooldowns cooldowns = new Cooldowns(testCooldowns, 
+			EnchantifulReactions.plugin.getConfig().getInt(
+						"Cooldown-times.Test"));
 	
 	@EventHandler
 	public boolean onDamage(EntityDamageByEntityEvent e) {
@@ -46,28 +51,52 @@ public class Test implements Listener{
 			Location damageeLoc = damagee.getLocation();	
 			if (damagerWeapon.containsEnchantment(Enchantment.KNOCKBACK)) {
 				
-				if (EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-cooldowns.Test")) {
+				/*
+				 * 
+				 * COOLDOWN TIMING
+				 * 
+				 */
 				
-				int cooldownTime = EnchantifulReactions.plugin.getConfig().getInt("Cooldown-times.Test");
-				if(testCooldowns.containsKey(damager.getName())) {
+				if(EnchantifulReactions.plugin.getConfig().getBoolean(
+						"Enabled-cooldowns.Smite-VS-BlastProtection")) {					
+					
+					
+					if(cooldowns.isPlayerCooldown(damager.getName())) {
 				 
-				long secondsLeft = ((testCooldowns.get(damager.getName())/1000) + cooldownTime) - (System.currentTimeMillis()/1000);
+						long cooldownSecondsLeft = cooldowns.getSecondsleft((damager.getName()));
 
-			if (EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-actionbar.Test")) {	
-				if(secondsLeft>0) {
-					packetUtils.sendActionBar(damager, Lang.SHADOW_STEP_COOLDOWN.toString().replace("%s", Long.toString(secondsLeft)));
-				return true;
-				}
-				
-			} else if (EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-chat.Test")) {
-				if(secondsLeft>0) {
-					damager.sendMessage(Lang.SHADOW_STEP_COOLDOWN.toString().replace("%s", Long.toString(secondsLeft)));
-				return true;
-				}
-			}
-				}
-				
-				testCooldowns.put(damager.getName(), System.currentTimeMillis());
+							if (EnchantifulReactions.plugin.getConfig().getBoolean(
+									"Enabled-actionbar.Test")) {
+								
+								if(cooldownSecondsLeft>0) {
+									
+									packetUtils.sendActionBar(damager,
+											Lang.SHADOW_STEP_COOLDOWN.toString().replace(
+													"%s", Long.toString(cooldownSecondsLeft)));
+									
+									return true;
+								}
+								
+						 } else if (EnchantifulReactions.plugin.getConfig().getBoolean(
+								 "Enabled-chat.Test")) {
+							 
+							 	if(cooldownSecondsLeft>0) {
+					
+							 		damager.sendMessage(
+							 				Lang.SHADOW_STEP_COOLDOWN.toString().replace(
+							 						"%s", Long.toString(cooldownSecondsLeft)));
+					
+							 		return true;
+							 	}
+						 }
+					}
+					cooldowns.setPlayerCooldown(damager.getName());
+					
+					/*
+					 * 
+					 * COOLDOWN TIMING
+					 * 
+					 */
 				} if (EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-chance.Test") ||
 						EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-cooldowns.Test")) {
 		        

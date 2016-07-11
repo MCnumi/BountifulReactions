@@ -6,6 +6,14 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import me.mcnumi.EnchantifulReactions;
+import me.mcnumi.events.PlayerItemConsume;
+import me.mcnumi.utils.Cooldowns;
+import me.mcnumi.utils.DamageeInfo;
+import me.mcnumi.utils.DamagerInfo;
+import me.mcnumi.utils.Lang;
+import me.mcnumi.utils.PacketUtils;
+
 import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -16,12 +24,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import me.mcnumi.EnchantifulReactions;
-import me.mcnumi.events.PlayerItemConsume;
-import me.mcnumi.utils.DamageeInfo;
-import me.mcnumi.utils.DamagerInfo;
-import me.mcnumi.utils.Lang;
-import me.mcnumi.utils.PacketUtils;
 
 public class SmiteVSBlastProtection implements Listener {
 	
@@ -38,6 +40,9 @@ public class SmiteVSBlastProtection implements Listener {
 	PacketUtils packetUtils = new PacketUtils();
 	DamagerInfo damagerInfo = new DamagerInfo();
 	DamageeInfo damageeInfo = new DamageeInfo();
+	Cooldowns cooldowns = new Cooldowns(smiteVsBlastCooldowns, 
+			EnchantifulReactions.plugin.getConfig().getInt(
+						"Cooldown-times.Smite-VS-BlastProtection"));
 	
 	@SuppressWarnings("deprecation")
 	@EventHandler
@@ -50,6 +55,7 @@ public class SmiteVSBlastProtection implements Listener {
 			// =--------------------------Damagee/Damager Variables--------------------------=\\
 			Player damager = (Player) e.getDamager();
 			ItemStack damagerWeapon = damagerInfo.getDamagerHeldItem(damager);
+			String damagerName = damager.getName();
 			Player damagee = (Player) e.getEntity();
 			ItemStack damageeHelmet = damageeInfo.getDamageeHelmet(damagee);
 			ItemStack damageeChestplate = damageeInfo.getDamageeChestplate(damagee);
@@ -82,15 +88,11 @@ public class SmiteVSBlastProtection implements Listener {
 								
 								if(EnchantifulReactions.plugin.getConfig().getBoolean(
 										"Enabled-cooldowns.Smite-VS-BlastProtection")) {
+																	 								 
 									
-								 int cooldownTime = EnchantifulReactions.plugin.getConfig().getInt(
-										 "Cooldown-times.Smite-VS-BlastProtection");
-									
-									if(smiteVsBlastCooldowns.containsKey(damager.getName())) {
+									if(cooldowns.isPlayerCooldown(damagerName)) {
 								 
-										long cooldownSecondsLeft = ((
-												smiteVsBlastCooldowns.get(damager.getName())/1000) + cooldownTime) -
-												(System.currentTimeMillis()/1000);
+										long cooldownSecondsLeft = cooldowns.getSecondsleft((damagerName));
 
 											if (EnchantifulReactions.plugin.getConfig().getBoolean(
 													"Enabled-actionbar.Smite-VS-BlastProtection")) {
@@ -116,9 +118,15 @@ public class SmiteVSBlastProtection implements Listener {
 											 		return true;
 											 	}
 										 }
-									}
+									} cooldowns.setPlayerCooldown(damagerName);
+									
+									/*
+									 * 
+									 * COOLDOWN TIMING
+									 * 
+									 */
 								
-								smiteVsBlastCooldowns.put(damager.getName(), System.currentTimeMillis());
+								
 								
 								} if (EnchantifulReactions.plugin.getConfig().getBoolean(
 										"Enabled-chance.Smite-VS-BlastProtection") ||
@@ -141,11 +149,6 @@ public class SmiteVSBlastProtection implements Listener {
 										
 										isPlayerDrinkMilk.add(damagee.getUniqueId());
 										
-										/*
-										 * 
-										 * COOLDOWN TIMING
-										 * 
-										 */
 										
 										/*
 										 * 
@@ -161,7 +164,13 @@ public class SmiteVSBlastProtection implements Listener {
 							long countdownSecondsLeft = ((
 								smiteVsBlastCountdowns.get(damagee.getName())/1000) + countdownTime) -
 								(System.currentTimeMillis()/1000);
-
+							
+							/*
+							 * 
+							 * ACTION BAR COUNTDOWN
+							 * 
+							 */	
+							
 								if (EnchantifulReactions.plugin.getConfig().getBoolean(
 									"Enabled-actionbar.Smite-VS-BlastProtection")) {
 									
@@ -193,6 +202,19 @@ public class SmiteVSBlastProtection implements Listener {
 										
 															playerSchedule.put(damagee.getName(), countdownTask);
 														}
+									
+									/*
+									 * 
+									 * ACTION BAR COUNTDOWN
+									 * 
+									 */	
+									
+									/*
+									 * 
+									 * CHAT COUNTDOWN
+									 * 
+									 */	
+									
 														
 												 } else if (EnchantifulReactions.plugin.getConfig().getBoolean(
 														 "Enabled-chat.Smite-VS-BlastProtection")) {
@@ -223,6 +245,15 @@ public class SmiteVSBlastProtection implements Listener {
 													 		
 													 	}
 												 }
+								
+								
+								/*
+								 * 
+								 * CHAT COUNTDOWN
+								 * 
+								 */	
+								
+								
 											}
 											
 										/*
@@ -235,12 +266,19 @@ public class SmiteVSBlastProtection implements Listener {
 										
 										
 										
+										/*
+										 * 
+										 * Check if the player drank milk.
+										 * 
+										 */	
+										
 										new BukkitRunnable() {
 											int endLoop;
 											@Override
 											public void run() {
 												if (playerItemConsume.getHasPlayerDrankMilk().get(damagee.getUniqueId())) {
 													playerDrankMilk = true;
+													
 												}
 												endLoop++;
 												
@@ -251,10 +289,20 @@ public class SmiteVSBlastProtection implements Listener {
 											
 										}.runTaskTimer(EnchantifulReactions.plugin, 0, 20);
 										
+										
+										/*
+										 * If the damagee did not drink milk within the
+										 * given time, he will be struck by lightning,
+										 * doing X amount of damage. 
+										 */	
+											
 									 if (! playerDrankMilk) {
 										 damagee.getWorld().strikeLightningEffect(damagee.getLocation());
 										 damagee.damage(EnchantifulReactions.plugin.getConfig().getInt(
 													"Timed-implosion.Damage"));
+										 
+										 playerItemConsume.getHasPlayerDrankMilk().remove(damagee.getUniqueId());
+										 isPlayerDrinkMilk.remove(damagee.getUniqueId());
 									 	}
 									}
 								}

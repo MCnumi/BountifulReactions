@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import me.mcnumi.EnchantifulReactions;
+import me.mcnumi.utils.Cooldowns;
 import me.mcnumi.utils.DamageeInfo;
 import me.mcnumi.utils.DamagerInfo;
 import me.mcnumi.utils.Lang;
@@ -32,6 +33,9 @@ public class LootingVSProtection implements Listener{
 	DamagerInfo damagerInfo = new DamagerInfo();
 	DamageeInfo damageeInfo = new DamageeInfo();
 	PacketUtils packetUtils = new PacketUtils();
+	Cooldowns cooldowns = new Cooldowns(lootVsProtCooldowns, 
+			EnchantifulReactions.plugin.getConfig().getInt(
+						"Cooldown-times.Test"));
 
 	
 	@EventHandler
@@ -45,6 +49,7 @@ public class LootingVSProtection implements Listener{
 			Player damager = (Player) e.getDamager();
 			ItemStack damagerWeapon = damagerInfo.getDamagerHeldItem(damager);
 			Location damagerLoc = damager.getLocation();
+			String damagerName = damager.getName();
 			Player damagee = (Player) e.getEntity();
 			Location damageeLoc = damagee.getLocation();
 			ItemStack damageeHelmet = damageeInfo.getDamageeHelmet(damagee);
@@ -67,42 +72,51 @@ public class LootingVSProtection implements Listener{
 								damageeInfo.isItemEnchanted(damageeLeggings, Enchantment.PROTECTION_ENVIRONMENTAL) ||
 								damageeInfo.isItemEnchanted(damageeBoots, Enchantment.PROTECTION_ENVIRONMENTAL)) {
 					
-					if(EnchantifulReactions.plugin.getConfig().getBoolean(
-							"Enabled-cooldowns.Looting-VS-Protection")) {
-						
-					 int cooldownTime = EnchantifulReactions.plugin.getConfig().getInt(
-							 "Cooldown-times.Looting-VS-Protection");
-						
-						if(lootVsProtCooldowns.containsKey(damager.getName())) {
-					 
-							long secondsLeft = ((lootVsProtCooldowns.get(damager.getName())/1000) + cooldownTime) -
-									(System.currentTimeMillis()/1000);
-
-								if (EnchantifulReactions.plugin.getConfig().getBoolean(
-										"Enabled-actionbar.Looting-VS-Protection")) {	
-									if(secondsLeft>0) {
-										
-										packetUtils.sendActionBar(damager,
-												Lang.SHADOW_STEP_COOLDOWN.toString().replace(
-														"%s", Long.toString(secondsLeft)));
-										
-										return true;
-									}
+								/*
+								 * 
+								 * COOLDOWN TIMING
+								 * 
+								 */
+								
+								if(EnchantifulReactions.plugin.getConfig().getBoolean(
+										"Enabled-cooldowns.Looting-VS-Protection")) {
+																	 								 
 									
-							 } else if (EnchantifulReactions.plugin.getConfig().getBoolean(
-									 "Enabled-chat.Looting-VS-Protection")) {
-								 	if(secondsLeft>0) {
-						
-								 		damager.sendMessage(
-								 				Lang.SHADOW_STEP_COOLDOWN.toString().replace(
-								 						"%s", Long.toString(secondsLeft)));
-						
-								 		return true;
-								 	}
-							 }
-						}
-					
-					lootVsProtCooldowns.put(damager.getName(), System.currentTimeMillis());
+									if(cooldowns.isPlayerCooldown(damagerName)) {
+								 
+										long cooldownSecondsLeft = cooldowns.getSecondsleft((damagerName));
+
+											if (EnchantifulReactions.plugin.getConfig().getBoolean(
+													"Enabled-actionbar.Looting-VS-Protection")) {
+												
+												if(cooldownSecondsLeft>0) {
+													
+													packetUtils.sendActionBar(damager,
+															Lang.SHADOW_STEP_COOLDOWN.toString().replace(
+																	"%s", Long.toString(cooldownSecondsLeft)));
+													
+													return true;
+												}
+												
+										 } else if (EnchantifulReactions.plugin.getConfig().getBoolean(
+												 "Enabled-chat.Looting-VS-Protection")) {
+											 
+											 	if(cooldownSecondsLeft>0) {
+									
+											 		damager.sendMessage(
+											 				Lang.SHADOW_STEP_COOLDOWN.toString().replace(
+											 						"%s", Long.toString(cooldownSecondsLeft)));
+									
+											 		return true;
+											 	}
+										 }
+									} cooldowns.setPlayerCooldown(damagerName);
+									
+									/*
+									 * 
+									 * COOLDOWN TIMING
+									 * 
+									 */
 					
 					} if (EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-chance.Looting-VS-Protection") ||
 							EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-cooldowns.Looting-VS-Protection")) {
@@ -111,10 +125,15 @@ public class LootingVSProtection implements Listener{
 								playerChance == ran.nextInt(
 								EnchantifulReactions.plugin.getConfig().getInt("Reaction-chance.Looting-VS-Protection"))) {
 					
-						
+												
+							/*
+							 * 
+							 * PARTICLES
+							 * 
+							 */
 							
 							if (EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-particles.Looting-VS-Protection")) {
-								
+
 								new BukkitRunnable() {		
 									double phi = 0;
 									Location particleLoc = damagerLoc; 
@@ -152,6 +171,21 @@ public class LootingVSProtection implements Listener{
 									}
 								}.runTaskTimer(EnchantifulReactions.plugin, 0, 1);
 							}
+							
+							/*
+							 * 
+							 * PARTICLES
+							 * 
+							 */
+							
+							
+							/*
+							 * 
+							 * DAMAGEE LOCATION
+							 * 
+							 */
+							
+							
 								double newX;
 				                double newZ;
 				                float nang = damageeLoc.getYaw() + 90;
@@ -164,7 +198,13 @@ public class LootingVSProtection implements Listener{
 				                	Location newDamagerLoc = new Location(damageeLoc.getWorld(), damageeLoc.getX() - newX,
 				                		damageeLoc.getY(), damageeLoc.getZ() - newZ,
 				                		damageeLoc.getYaw(), damageeLoc.getPitch());
-				                
+									
+						   /*
+							* 
+							* DAMAGEE LOCATION
+							* 
+							*/
+									
 				                	damager.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 200, 1));
 								    damager.teleport(newDamagerLoc);
 								    
