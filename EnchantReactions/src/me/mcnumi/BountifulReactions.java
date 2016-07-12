@@ -34,7 +34,6 @@ public class BountifulReactions extends JavaPlugin{
 		
 		plugin = this;
 		
-		
 		//=--------------------------------{Reactions}--------------------------------=\\
 		pm.registerEvents(new SmiteVSBlastProtection(), this);
 		pm.registerEvents(new LootingVSProtection(), this);
