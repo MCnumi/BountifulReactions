@@ -38,8 +38,6 @@ public class SmiteVSBlastProtection implements Listener {
 	
 	PlayerItemConsume playerItemConsume = new PlayerItemConsume();
 	PacketUtils packetUtils = new PacketUtils();
-	DamagerInfo damagerInfo = new DamagerInfo();
-	DamageeInfo damageeInfo = new DamageeInfo();
 	Cooldowns cooldowns = new Cooldowns(smiteVsBlastCooldowns, 
 			BountifulReactions.plugin.getConfig().getInt(
 						"Cooldown-times.Smite-VS-BlastProtection"));
@@ -54,26 +52,26 @@ public class SmiteVSBlastProtection implements Listener {
 			
 			// =--------------------------Damagee/Damager Variables--------------------------=\\
 			Player damager = (Player) e.getDamager();
-			ItemStack damagerWeapon = damagerInfo.getDamagerHeldItem(damager);
+			ItemStack damagerWeapon = DamagerInfo.getDamagerHeldItem(damager);
 			String damagerName = damager.getName();
 			Player damagee = (Player) e.getEntity();
-			ItemStack damageeHelmet = damageeInfo.getDamageeHelmet(damagee);
-			ItemStack damageeChestplate = damageeInfo.getDamageeChestplate(damagee);
-			ItemStack damageeLeggings = damageeInfo.getDamageeLeggings(damagee);
-			ItemStack damageeBoots = damageeInfo.getDamageeBoots(damagee);
+			ItemStack damageeHelmet = DamageeInfo.getDamageeHelmet(damagee);
+			ItemStack damageeChestplate = DamageeInfo.getDamageeChestplate(damagee);
+			ItemStack damageeLeggings = DamageeInfo.getDamageeLeggings(damagee);
+			ItemStack damageeBoots = DamageeInfo.getDamageeBoots(damagee);
 			// =--------------------------Damagee/Damager Variables--------------------------=\\
 					
-				if (damagerInfo.isSword(damagerWeapon)
-						&& damageeInfo.isHelmet(damageeHelmet)
-						|| damageeInfo.isChestplate(damageeChestplate)
-						|| damageeInfo.isLeggings(damageeLeggings)
-						|| damageeInfo.isBoots(damageeBoots)) {
+				if (DamagerInfo.isSword(damagerWeapon)
+						&& DamageeInfo.isHelmet(damageeHelmet)
+						|| DamageeInfo.isChestplate(damageeChestplate)
+						|| DamageeInfo.isLeggings(damageeLeggings)
+						|| DamageeInfo.isBoots(damageeBoots)) {
 					
-						if (damagerInfo.isItemEnchanted(damagerWeapon, Enchantment.DAMAGE_UNDEAD) &&
-						    damageeInfo.isItemEnchanted(damageeHelmet, Enchantment.PROTECTION_EXPLOSIONS) ||
-							damageeInfo.isItemEnchanted(damageeChestplate, Enchantment.PROTECTION_EXPLOSIONS) ||
-							damageeInfo.isItemEnchanted(damageeLeggings, Enchantment.PROTECTION_EXPLOSIONS) ||
-							damageeInfo.isItemEnchanted(damageeBoots, Enchantment.PROTECTION_EXPLOSIONS)) {
+						if (DamagerInfo.isItemEnchanted(damagerWeapon, Enchantment.DAMAGE_UNDEAD) &&
+						    DamageeInfo.isItemEnchanted(damageeHelmet, Enchantment.PROTECTION_EXPLOSIONS) ||
+							DamageeInfo.isItemEnchanted(damageeChestplate, Enchantment.PROTECTION_EXPLOSIONS) ||
+							DamageeInfo.isItemEnchanted(damageeLeggings, Enchantment.PROTECTION_EXPLOSIONS) ||
+							DamageeInfo.isItemEnchanted(damageeBoots, Enchantment.PROTECTION_EXPLOSIONS)) {
 							
 							if (damagerWeapon.getEnchantmentLevel(Enchantment.DAMAGE_UNDEAD) > 
 							    damageeChestplate.getEnchantmentLevel(Enchantment.PROTECTION_EXPLOSIONS)) {

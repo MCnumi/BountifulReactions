@@ -30,8 +30,7 @@ public class LootingVSProtection implements Listener{
 	private HashMap<String, Long> lootVsProtCooldowns = new HashMap<String, Long>();
 	Random ran = new Random();
 	int playerChance = ran.nextInt(BountifulReactions.plugin.getConfig().getInt("Reaction-chance.Looting-VS-Protection"));
-	DamagerInfo damagerInfo = new DamagerInfo();
-	DamageeInfo damageeInfo = new DamageeInfo();
+	
 	PacketUtils packetUtils = new PacketUtils();
 	Cooldowns cooldowns = new Cooldowns(lootVsProtCooldowns, 
 			BountifulReactions.plugin.getConfig().getInt(
@@ -47,28 +46,28 @@ public class LootingVSProtection implements Listener{
 			
 			// =--------------------------Damagee/Damager Variables--------------------------=\\
 			Player damager = (Player) e.getDamager();
-			ItemStack damagerWeapon = damagerInfo.getDamagerHeldItem(damager);
+			ItemStack damagerWeapon = DamagerInfo.getDamagerHeldItem(damager);
 			Location damagerLoc = damager.getLocation();
 			String damagerName = damager.getName();
 			Player damagee = (Player) e.getEntity();
 			Location damageeLoc = damagee.getLocation();
-			ItemStack damageeHelmet = damageeInfo.getDamageeHelmet(damagee);
-			ItemStack damageeChestplate = damageeInfo.getDamageeChestplate(damagee);
-			ItemStack damageeLeggings = damageeInfo.getDamageeLeggings(damagee);
-			ItemStack damageeBoots = damageeInfo.getDamageeBoots(damagee);
+			ItemStack damageeHelmet = DamageeInfo.getDamageeHelmet(damagee);
+			ItemStack damageeChestplate = DamageeInfo.getDamageeChestplate(damagee);
+			ItemStack damageeLeggings = DamageeInfo.getDamageeLeggings(damagee);
+			ItemStack damageeBoots = DamageeInfo.getDamageeBoots(damagee);
 			// =--------------------------Damagee/Damager Variables--------------------------=\\
 					
-				if (damagerInfo.isSword(damagerWeapon)
-						&& damageeInfo.isHelmet(damageeHelmet)
-						|| damageeInfo.isChestplate(damageeChestplate)
-						|| damageeInfo.isLeggings(damageeLeggings)
-						|| damageeInfo.isBoots(damageeBoots)) {
+				if (DamagerInfo.isSword(damagerWeapon)
+						&& DamageeInfo.isHelmet(damageeHelmet)
+						|| DamageeInfo.isChestplate(damageeChestplate)
+						|| DamageeInfo.isLeggings(damageeLeggings)
+						|| DamageeInfo.isBoots(damageeBoots)) {
 						
-					if (damagerInfo.isItemEnchanted(damagerWeapon, Enchantment.LOOT_BONUS_MOBS) &&
-						damageeInfo.isItemEnchanted(damageeHelmet, Enchantment.PROTECTION_ENVIRONMENTAL) ||
-						damageeInfo.isItemEnchanted(damageeChestplate, Enchantment.PROTECTION_ENVIRONMENTAL) ||
-						damageeInfo.isItemEnchanted(damageeLeggings, Enchantment.PROTECTION_ENVIRONMENTAL) ||
-						damageeInfo.isItemEnchanted(damageeBoots, Enchantment.PROTECTION_ENVIRONMENTAL)) {
+					if (DamagerInfo.isItemEnchanted(damagerWeapon, Enchantment.LOOT_BONUS_MOBS) &&
+						DamageeInfo.isItemEnchanted(damageeHelmet, Enchantment.PROTECTION_ENVIRONMENTAL) ||
+						DamageeInfo.isItemEnchanted(damageeChestplate, Enchantment.PROTECTION_ENVIRONMENTAL) ||
+						DamageeInfo.isItemEnchanted(damageeLeggings, Enchantment.PROTECTION_ENVIRONMENTAL) ||
+						DamageeInfo.isItemEnchanted(damageeBoots, Enchantment.PROTECTION_ENVIRONMENTAL)) {
 					
 						/*
 						 * 

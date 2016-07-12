@@ -7,61 +7,61 @@ import org.bukkit.inventory.ItemStack;
 
 public class DamageeInfo {
 	
-	public ItemStack getDamageeHeldItem(Player player) {
+	public static  ItemStack getDamageeHeldItem(Player player) {
 		ItemStack sword = player.getInventory().getItemInMainHand();
 		 // Returns the ITEM the player is wielding in main hand
 		return sword;
 	}
 	
-	public ItemStack getDamageeHelmet(Player player) {
+	public static  ItemStack getDamageeHelmet(Player player) {
 		ItemStack helmet = player.getInventory().getHelmet();
 		 // Returns the HELMET the player is wearing
 		return helmet;
 	}
 		
-	public ItemStack getDamageeChestplate(Player player) {
+	public static  ItemStack getDamageeChestplate(Player player) {
 		ItemStack chestplate = player.getInventory().getChestplate();
 		 // Returns the CHESTPLATE the player is wearing
 		return chestplate;		
 	}
 	
-	public ItemStack getDamageeLeggings(Player player) {
+	public static  ItemStack getDamageeLeggings(Player player) {
 		ItemStack leggings = player.getInventory().getLeggings();
 		 // Returns the LEGGINGS the player is wearing
 		return leggings;		
 	}
 	
-	public ItemStack getDamageeBoots(Player player) {
+	public static ItemStack getDamageeBoots(Player player) {
 		ItemStack boots = player.getInventory().getBoots();
 		 // Returns the BOOTS the player is wearing
 		return boots;		
 	}
 	
-	public ItemStack[] getDamageeArmor(Player player) {
+	public static ItemStack[] getDamageeArmor(Player player) {
 		ItemStack[] allArmorSlots = player.getInventory().getArmorContents();
 		// Returns the BOW the player is wielding in main hand
 	    return allArmorSlots;		
     }
 	
-	public ItemStack getDamageeBow(Player player) {
+	public static ItemStack getDamageeBow(Player player) {
 		ItemStack bow = player.getInventory().getItemInMainHand();
 	 // Returns the BOW the player is wielding in main hand
 	return bow;
     }
-    public boolean isStackMaterial(ItemStack item, Material material) {
+    public static boolean isStackMaterial(ItemStack item, Material material) {
     	if (item == null) {return false;}
     	// Checks if the ITEMSTACK is the MATERIAL
         return item.getType() == material;
     }
 	
-	public boolean isItemEnchanted(ItemStack item, Enchantment enchantment) {
+	public static boolean isItemEnchanted(ItemStack item, Enchantment enchantment) {
 		if (item == null) {return false;}
 		// Checks if the ITEM contains the ENCHANTMENT
 		return item.containsEnchantment(enchantment);		
 	}
 	
 	
-	public boolean isHelmet(ItemStack item){
+	public static boolean isHelmet(ItemStack item){
 		if (item == null) {return false;}
 		return item.getType() == Material.DIAMOND_HELMET ||
 		item.getType() == Material.CHAINMAIL_HELMET ||
@@ -71,7 +71,7 @@ public class DamageeInfo {
 		
 	}
 	
-	public boolean isChestplate(ItemStack item){
+	public static boolean isChestplate(ItemStack item){
 		if (item == null) {return false;}
 		return item.getType() == Material.DIAMOND_CHESTPLATE ||
 		item.getType() == Material.CHAINMAIL_CHESTPLATE ||
@@ -80,7 +80,7 @@ public class DamageeInfo {
 		item.getType() == Material.LEATHER_CHESTPLATE;
 	}
 	
-	public boolean isLeggings(ItemStack item){
+	public static boolean isLeggings(ItemStack item){
 		if (item == null) {return false;}
 		return item.getType() == Material.DIAMOND_LEGGINGS ||
 		item.getType() == Material.CHAINMAIL_LEGGINGS ||
@@ -89,7 +89,7 @@ public class DamageeInfo {
 		item.getType() == Material.LEATHER_LEGGINGS;
 	}
 	
-	public boolean isBoots(ItemStack item){
+	public static boolean isBoots(ItemStack item){
 		if (item == null) {return false;}
 		return item.getType() == Material.DIAMOND_BOOTS ||
 		item.getType() == Material.CHAINMAIL_BOOTS ||
@@ -98,7 +98,7 @@ public class DamageeInfo {
 		item.getType() == Material.LEATHER_BOOTS;
 	}
 	
-	public boolean isSword(ItemStack item){
+	public static boolean isSword(ItemStack item){
 		if (item == null) {return false;}
 		return item.getType() == Material.DIAMOND_SWORD ||
 		item.getType() == Material.WOOD_SWORD ||
