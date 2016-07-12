@@ -45,10 +45,13 @@ public class SwordsGUI {
 				"",
 				ChatColor.GRAY + "If the level of Smite is greater than Blast Protection,",
 				ChatColor.GRAY + "the player with Blast Protection will become charged",
-				ChatColor.GRAY + "and explode if he does not drink milk within",
+				ChatColor.GRAY + "and struck by lighting if he does not drink milk within",
 				ChatColor.GRAY + String.valueOf(
-						EnchantifulReactions.plugin.getConfig().getInt("Implosion-time.Smite-VS-BlastProtection")) +
-						" seconds!",
+						EnchantifulReactions.plugin.getConfig().getInt("Timed-implosion.Implosion-countdown")) +
+						" seconds! "
+				+ "Dealing " + String.valueOf(
+						EnchantifulReactions.plugin.getConfig().getInt("Timed-implosion.Damage")) +
+				" damage.",
 				"",
 				ChatColor.DARK_AQUA + "Cool-down:",
 				ChatColor.RESET + "" + ChatColor.YELLOW + "" + 
@@ -64,10 +67,13 @@ public class SwordsGUI {
 					"",
 					ChatColor.GRAY + "If the level of Smite is greater than Blast Protection,",
 					ChatColor.GRAY + "the player with Blast Protection will become charged",
-					ChatColor.GRAY + "and explode if he does not drink milk within",
+					ChatColor.GRAY + "and struck by lighting if he does not drink milk within",
 					ChatColor.GRAY + String.valueOf(
-							EnchantifulReactions.plugin.getConfig().getInt("Implosion-time.Smite-VS-BlastProtection")) +
-							" seconds!",
+							EnchantifulReactions.plugin.getConfig().getInt("Timed-implosion.Implosion-countdown")) +
+							" seconds! "
+					+ "Dealing " + String.valueOf(
+							EnchantifulReactions.plugin.getConfig().getInt("Timed-implosion.Damage")) +
+					" damage.",
 					"",
 					ChatColor.DARK_AQUA + "Chance:",
 					ChatColor.RESET + "" + ChatColor.YELLOW + "" + 

@@ -63,7 +63,7 @@ public class Test implements Listener{
 					if(cooldowns.isPlayerCooldown(damager.getName())) {
 				 
 						long cooldownSecondsLeft = cooldowns.getSecondsleft((damager.getName()));
-
+						 
 							if (EnchantifulReactions.plugin.getConfig().getBoolean(
 									"Enabled-actionbar.Test")) {
 								
@@ -168,5 +168,9 @@ public class Test implements Listener{
 			}
 		}
 	return false; 
+	} 
+	
+	public Object getCooldowns() {
+		return cooldowns;
 	}
 }

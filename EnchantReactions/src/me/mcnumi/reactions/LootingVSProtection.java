@@ -137,6 +137,7 @@ public class LootingVSProtection implements Listener{
 								new BukkitRunnable() {		
 									double phi = 0;
 									Location particleLoc = damagerLoc; 
+									PacketPlayOutWorldParticles packet;
 									@Override
 									public void run() {
 										phi += Math.PI/10;
@@ -147,8 +148,7 @@ public class LootingVSProtection implements Listener{
 											double y = r*Math.cos(phi)*-1;
 											double z = r*Math.sin(theta);
 											particleLoc.add(x,y,z);
-											
-											PacketPlayOutWorldParticles packet = new PacketPlayOutWorldParticles(
+											packet = new PacketPlayOutWorldParticles(
 													EnumParticle.SMOKE_NORMAL,
 													true, (float) particleLoc.getX(), (float) particleLoc.getY(),
 													(float) particleLoc.getZ(), 0, 0, 0, 0, 2, null);	        

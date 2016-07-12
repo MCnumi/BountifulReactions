@@ -3,6 +3,7 @@ package me.mcnumi.utils;
 import java.util.HashMap;
 
 public class Cooldowns {
+    PacketUtils packetUtils = new PacketUtils();
 	private int cooldownTime;
 	private HashMap<String, Long> cooldowns = new HashMap<String, Long>();
 	
@@ -18,7 +19,7 @@ public class Cooldowns {
 	
 	/**
 	    * Sets the players cooldown.
-	    * @param playerName The player to fetch.
+	    * @param playerName The player to retrieve.
 	    */	
 	public void setPlayerCooldown(String playerName) {
 		cooldowns.put(playerName, System.currentTimeMillis());		
@@ -26,24 +27,20 @@ public class Cooldowns {
 	
 	/**
 	    * Retrieves remaining seconds.
-	    * @param playerName The player to fetch.
+	    * @param playerName The player to retrieve.
 	    * @return Seconds left.
 	    */
 	public Long getSecondsleft(String playerName) {
 		return ((cooldowns.get(playerName)/1000) + cooldownTime) -
 				(System.currentTimeMillis()/1000);		
 	}
-	
 	/**
-	    * Removes player from HashMap
-	    * @param playerName The player to fetch.
+	    * Checks whether or not the player has a cooldown.
+	    * @param playerName The player to retrieve.
+	    * @return If the player has a cooldown.
 	    */
-	public void removePlayer(String playerName) {
-		cooldowns.remove(playerName);
-	}
-	
 	public boolean isPlayerCooldown(String playerName) {
 		return cooldowns.containsKey(playerName);
 		
 	}
- }
+}

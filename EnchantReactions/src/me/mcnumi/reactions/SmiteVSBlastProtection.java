@@ -269,6 +269,8 @@ public class SmiteVSBlastProtection implements Listener {
 										/*
 										 * 
 										 * Check if the player drank milk.
+										 * if true, set global variable "playerDrankMilk"
+										 * to true.
 										 * 
 										 */	
 										
@@ -284,7 +286,7 @@ public class SmiteVSBlastProtection implements Listener {
 												
 											if (endLoop >= EnchantifulReactions.plugin.getConfig().getInt(
 													"Timed-implosion.Implosion-countdown"))
-												this.cancel();
+												cancel();
 											}
 											
 										}.runTaskTimer(EnchantifulReactions.plugin, 0, 20);

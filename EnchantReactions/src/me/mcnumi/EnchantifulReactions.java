@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import me.mcnumi.commands.ERInfo;
 import me.mcnumi.events.InventoryClickInfoGUI;
 import me.mcnumi.events.InventoryClickMainGUI;
+import me.mcnumi.events.PlayerItemConsume;
 import me.mcnumi.events.StopInventoryClick;
 import me.mcnumi.reactions.LootingVSProtection;
 import me.mcnumi.reactions.SmiteVSBlastProtection;
@@ -43,6 +44,7 @@ public class EnchantifulReactions extends JavaPlugin{
 		pm.registerEvents(new StopInventoryClick(), this);
 		pm.registerEvents(new InventoryClickMainGUI(), this);
 		pm.registerEvents(new InventoryClickInfoGUI(), this);
+		pm.registerEvents(new PlayerItemConsume(), this);
 		pm.registerEvents(new Test(), this);
 		//=--------------------------------{Events}--------------------------------=\\
 		
@@ -96,7 +98,7 @@ public class EnchantifulReactions extends JavaPlugin{
 	        conf.save(getLangFile());
 	    } catch(IOException e) {
 	        log.log(Level.WARNING, "PluginName: Failed to save lang.yml.");
-	        log.log(Level.WARNING, "PluginName: Report this stack trace to <your name>.");
+	        log.log(Level.WARNING, "PluginName: Report this stack trace to MCnumi.");
 	        e.printStackTrace();
 	    }
 		return conf;
