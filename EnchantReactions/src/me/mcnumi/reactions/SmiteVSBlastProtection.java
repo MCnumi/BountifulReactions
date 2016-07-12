@@ -62,8 +62,6 @@ public class SmiteVSBlastProtection implements Listener {
 			ItemStack damageeLeggings = damageeInfo.getDamageeLeggings(damagee);
 			ItemStack damageeBoots = damageeInfo.getDamageeBoots(damagee);
 			// =--------------------------Damagee/Damager Variables--------------------------=\\
-			
-			if (e.getCause().equals(damagerWeapon)) {
 					
 					if (damagerInfo.isSword(damagerWeapon) &&
 						damageeInfo.isHelmet(damageeHelmet) ||
@@ -331,7 +329,6 @@ public class SmiteVSBlastProtection implements Listener {
 					}
 				}
 			}
-		}
 		return false;
 	}
 	

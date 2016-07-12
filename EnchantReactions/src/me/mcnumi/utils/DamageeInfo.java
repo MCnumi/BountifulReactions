@@ -44,22 +44,25 @@ public class DamageeInfo {
     }
 	
 	public ItemStack getDamageeBow(Player player) {
-	ItemStack bow = player.getInventory().getItemInMainHand();
+		ItemStack bow = player.getInventory().getItemInMainHand();
 	 // Returns the BOW the player is wielding in main hand
-	return bow;		
+	return bow;
     }
     public boolean isStackMaterial(ItemStack item, Material material) {
+    	if (item == null) {return false;}
     	// Checks if the ITEMSTACK is the MATERIAL
         return item.getType() == material;
     }
 	
 	public boolean isItemEnchanted(ItemStack item, Enchantment enchantment) {
+		if (item == null) {return false;}
 		// Checks if the ITEM contains the ENCHANTMENT
 		return item.containsEnchantment(enchantment);		
 	}
 	
 	
 	public boolean isHelmet(ItemStack item){
+		if (item == null) {return false;}
 		return item.getType() == Material.DIAMOND_HELMET ||
 		item.getType() == Material.CHAINMAIL_HELMET ||
 		item.getType() == Material.GOLD_HELMET ||
@@ -69,6 +72,7 @@ public class DamageeInfo {
 	}
 	
 	public boolean isChestplate(ItemStack item){
+		if (item == null) {return false;}
 		return item.getType() == Material.DIAMOND_CHESTPLATE ||
 		item.getType() == Material.CHAINMAIL_CHESTPLATE ||
 		item.getType() == Material.GOLD_CHESTPLATE ||
@@ -77,6 +81,7 @@ public class DamageeInfo {
 	}
 	
 	public boolean isLeggings(ItemStack item){
+		if (item == null) {return false;}
 		return item.getType() == Material.DIAMOND_LEGGINGS ||
 		item.getType() == Material.CHAINMAIL_LEGGINGS ||
 		item.getType() == Material.GOLD_LEGGINGS ||
@@ -85,6 +90,7 @@ public class DamageeInfo {
 	}
 	
 	public boolean isBoots(ItemStack item){
+		if (item == null) {return false;}
 		return item.getType() == Material.DIAMOND_BOOTS ||
 		item.getType() == Material.CHAINMAIL_BOOTS ||
 		item.getType() == Material.GOLD_BOOTS ||
@@ -93,6 +99,7 @@ public class DamageeInfo {
 	}
 	
 	public boolean isSword(ItemStack item){
+		if (item == null) {return false;}
 		return item.getType() == Material.DIAMOND_SWORD ||
 		item.getType() == Material.WOOD_SWORD ||
 		item.getType() == Material.GOLD_SWORD ||
