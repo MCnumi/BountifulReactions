@@ -1,6 +1,6 @@
-name: EnchantifulReactions
+name: BountifulReactions
 version: Beta 0.0.1
-main: me.mcnumi.EnchantifulReactions
+main: me.mcnumi.BountifulReactions
 author: MCnumi
 description: Adds tons of reactions between vanilla enchantments, and custom enchantments!
 permission-message: &noperms "§cError: §fNo permission!"                                      

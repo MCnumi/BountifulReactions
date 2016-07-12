@@ -3,7 +3,7 @@ package me.mcnumi.reactions;
 import java.util.HashMap;
 import java.util.Random;
 
-import me.mcnumi.EnchantifulReactions;
+import me.mcnumi.BountifulReactions;
 import me.mcnumi.utils.Cooldowns;
 import me.mcnumi.utils.DamageeInfo;
 import me.mcnumi.utils.DamagerInfo;
@@ -29,19 +29,19 @@ public class LootingVSProtection implements Listener{
 		
 	private HashMap<String, Long> lootVsProtCooldowns = new HashMap<String, Long>();
 	Random ran = new Random();
-	int playerChance = ran.nextInt(EnchantifulReactions.plugin.getConfig().getInt("Reaction-chance.Looting-VS-Protection"));
+	int playerChance = ran.nextInt(BountifulReactions.plugin.getConfig().getInt("Reaction-chance.Looting-VS-Protection"));
 	DamagerInfo damagerInfo = new DamagerInfo();
 	DamageeInfo damageeInfo = new DamageeInfo();
 	PacketUtils packetUtils = new PacketUtils();
 	Cooldowns cooldowns = new Cooldowns(lootVsProtCooldowns, 
-			EnchantifulReactions.plugin.getConfig().getInt(
+			BountifulReactions.plugin.getConfig().getInt(
 						"Cooldown-times.Test"));
 
 	
 	@EventHandler
 	public boolean onDamage(EntityDamageByEntityEvent e) {
 		
-	if (EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-reactions.Looting-VS-Protection"))	{
+	if (BountifulReactions.plugin.getConfig().getBoolean("Enabled-reactions.Looting-VS-Protection"))	{
 			
 			if (e.getDamager() instanceof Player && e.getEntity() instanceof Player) {
 			
@@ -78,7 +78,7 @@ public class LootingVSProtection implements Listener{
 								 * 
 								 */
 								
-								if(EnchantifulReactions.plugin.getConfig().getBoolean(
+								if(BountifulReactions.plugin.getConfig().getBoolean(
 										"Enabled-cooldowns.Looting-VS-Protection")) {
 																	 								 
 									
@@ -86,7 +86,7 @@ public class LootingVSProtection implements Listener{
 								 
 										long cooldownSecondsLeft = cooldowns.getSecondsleft((damagerName));
 
-											if (EnchantifulReactions.plugin.getConfig().getBoolean(
+											if (BountifulReactions.plugin.getConfig().getBoolean(
 													"Enabled-actionbar.Looting-VS-Protection")) {
 												
 												if(cooldownSecondsLeft>0) {
@@ -98,7 +98,7 @@ public class LootingVSProtection implements Listener{
 													return true;
 												}
 												
-										 } else if (EnchantifulReactions.plugin.getConfig().getBoolean(
+										 } else if (BountifulReactions.plugin.getConfig().getBoolean(
 												 "Enabled-chat.Looting-VS-Protection")) {
 											 
 											 	if(cooldownSecondsLeft>0) {
@@ -117,13 +117,21 @@ public class LootingVSProtection implements Listener{
 									 * COOLDOWN TIMING
 									 * 
 									 */
-					
-					} if (EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-chance.Looting-VS-Protection") ||
-							EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-cooldowns.Looting-VS-Protection")) {
-						
-						if (EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-cooldowns.Looting-VS-Protection") ||
-								playerChance == ran.nextInt(
-								EnchantifulReactions.plugin.getConfig().getInt("Reaction-chance.Looting-VS-Protection"))) {
+									
+									
+									
+									} if (BountifulReactions.plugin.getConfig().getBoolean(
+											"Enabled-chance.Looting-VS-Protection") ||
+											
+											BountifulReactions.plugin.getConfig().getBoolean(
+													"Enabled-cooldowns.Looting-VS-Protection")) {
+										
+										if (BountifulReactions.plugin.getConfig().getBoolean(
+												"Enabled-cooldowns.Looting-VS-Protection") ||
+												
+												playerChance == ran.nextInt(
+												BountifulReactions.plugin.getConfig().getInt(
+														"Reaction-chance.Looting-VS-Protection"))) {
 					
 												
 							/*
@@ -132,7 +140,7 @@ public class LootingVSProtection implements Listener{
 							 * 
 							 */
 							
-							if (EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-particles.Looting-VS-Protection")) {
+							if (BountifulReactions.plugin.getConfig().getBoolean("Enabled-particles.Looting-VS-Protection")) {
 
 								new BukkitRunnable() {		
 									double phi = 0;
@@ -142,23 +150,38 @@ public class LootingVSProtection implements Listener{
 									public void run() {
 										phi += Math.PI/10;
 										
+										/*
+										 * 
+										 * XYZ COORDS
+										 * 
+										 */
 										for (double theta = 0; theta <= 2*Math.PI; theta += Math.PI/40) {							
 											double r = 1.5;
 											double x = r*Math.cos(theta);
 											double y = r*Math.cos(phi)*-1;
 											double z = r*Math.sin(theta);
+										/*
+										 * 
+										 * XYZ COORDS
+										 * 
+										 */	
 											particleLoc.add(x,y,z);
+											
 											packet = new PacketPlayOutWorldParticles(
-													EnumParticle.SMOKE_NORMAL,
-													true, (float) particleLoc.getX(), (float) particleLoc.getY(),
+													EnumParticle.SMOKE_NORMAL, true, 
+													(float) particleLoc.getX(), 
+													(float) particleLoc.getY(),
 													(float) particleLoc.getZ(), 0, 0, 0, 0, 2, null);	        
 											
 						                    	for (Entity p : damagerLoc.getWorld().getNearbyEntities(
-						                    			damagerLoc, (float) particleLoc.getX(),
-						                    			(float) particleLoc.getY(), (float) particleLoc.getZ())) {
+						                    			damagerLoc, 
+						                    			(float) particleLoc.getX(),
+						                    			(float) particleLoc.getY(), 
+						                    			(float) particleLoc.getZ())) {
 						                    		
 						                    		if (p instanceof Player) { 
-						                    			((CraftPlayer)p).getHandle().playerConnection.sendPacket(packet); 
+						                    			((CraftPlayer)p).getHandle().
+						                    			playerConnection.sendPacket(packet); 
 						                    		} 
 						                    	}							
 						                    	damagerLoc.subtract(x,y,z);
@@ -169,7 +192,7 @@ public class LootingVSProtection implements Listener{
 										}
 										
 									}
-								}.runTaskTimer(EnchantifulReactions.plugin, 0, 1);
+								}.runTaskTimer(BountifulReactions.plugin, 0, 1);
 							}
 							
 							/*
@@ -195,8 +218,10 @@ public class LootingVSProtection implements Listener{
 				                	newX = Math.cos(Math.toRadians(nang));
 				                	newZ = Math.sin(Math.toRadians(nang));
 				       
-				                	Location newDamagerLoc = new Location(damageeLoc.getWorld(), damageeLoc.getX() - newX,
-				                		damageeLoc.getY(), damageeLoc.getZ() - newZ,
+				                	Location newDamagerLoc = new Location(damageeLoc.getWorld(), 
+				                		damageeLoc.getX() - newX,
+				                		damageeLoc.getY(), 
+				                		damageeLoc.getZ() - newZ,
 				                		damageeLoc.getYaw(), damageeLoc.getPitch());
 									
 						   /*

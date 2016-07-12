@@ -2,7 +2,7 @@ package me.mcnumi.guis;
 
 import java.util.Arrays;
 
-import me.mcnumi.EnchantifulReactions;
+import me.mcnumi.BountifulReactions;
 import me.mcnumi.utils.EnchantGlow;
 
 import org.bukkit.Bukkit;
@@ -39,7 +39,7 @@ public class SwordsGUI {
 	public void openSwordsInv(Player p) {
 		swordsInv = Bukkit.createInventory(null, 27, ChatColor.RED + "" + ChatColor.BOLD + "" + "Swords Reaction Info");
 		//=--------------------------------{Smite Vs Blast Protection}--------------------------------=\\
-		if (EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-cooldowns.Smite-VS-BlastProtection")) {
+		if (BountifulReactions.plugin.getConfig().getBoolean("Enabled-cooldowns.Smite-VS-BlastProtection")) {
 		metaSmiteBlast.setLore(Arrays.asList(
 				ChatColor.DARK_AQUA + "Timed-Implosion:",
 				"",
@@ -47,21 +47,21 @@ public class SwordsGUI {
 				ChatColor.GRAY + "the player with Blast Protection will become charged",
 				ChatColor.GRAY + "and struck by lighting if he does not drink milk within",
 				ChatColor.GRAY + String.valueOf(
-						EnchantifulReactions.plugin.getConfig().getInt("Timed-implosion.Implosion-countdown")) +
+						BountifulReactions.plugin.getConfig().getInt("Timed-implosion.Implosion-countdown")) +
 						" seconds! "
 				+ "Dealing " + String.valueOf(
-						EnchantifulReactions.plugin.getConfig().getInt("Timed-implosion.Damage")) +
+						BountifulReactions.plugin.getConfig().getInt("Timed-implosion.Damage")) +
 				" damage.",
 				"",
 				ChatColor.DARK_AQUA + "Cool-down:",
 				ChatColor.RESET + "" + ChatColor.YELLOW + "" + 
 				ChatColor.UNDERLINE +
-				EnchantifulReactions.plugin.getConfig().getInt("Cooldown-times.Smite-VS-BlastProtection") + 
+				BountifulReactions.plugin.getConfig().getInt("Cooldown-times.Smite-VS-BlastProtection") + 
 				" Seconds"));
 		smiteVsBlastProtection.setItemMeta(metaSmiteBlast);
 		EnchantGlow.addGlow(smiteVsBlastProtection);
 		swordsInv.setItem(0, smiteVsBlastProtection);
-		} else if (EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-chance.Smite-VS-BlastProtection")) {
+		} else if (BountifulReactions.plugin.getConfig().getBoolean("Enabled-chance.Smite-VS-BlastProtection")) {
 			metaSmiteBlast.setLore(Arrays.asList(
 					ChatColor.DARK_AQUA + "Timed-Implosion:",
 					"",
@@ -69,16 +69,16 @@ public class SwordsGUI {
 					ChatColor.GRAY + "the player with Blast Protection will become charged",
 					ChatColor.GRAY + "and struck by lighting if he does not drink milk within",
 					ChatColor.GRAY + String.valueOf(
-							EnchantifulReactions.plugin.getConfig().getInt("Timed-implosion.Implosion-countdown")) +
+							BountifulReactions.plugin.getConfig().getInt("Timed-implosion.Implosion-countdown")) +
 							" seconds! "
 					+ "Dealing " + String.valueOf(
-							EnchantifulReactions.plugin.getConfig().getInt("Timed-implosion.Damage")) +
+							BountifulReactions.plugin.getConfig().getInt("Timed-implosion.Damage")) +
 					" damage.",
 					"",
 					ChatColor.DARK_AQUA + "Chance:",
 					ChatColor.RESET + "" + ChatColor.YELLOW + "" + 
 					ChatColor.UNDERLINE + "1/" +
-					EnchantifulReactions.plugin.getConfig().getInt("Reaction-chance.Smite-VS-BlastProtection") + 
+					BountifulReactions.plugin.getConfig().getInt("Reaction-chance.Smite-VS-BlastProtection") + 
 					" Chance"));
 			smiteVsBlastProtection.setItemMeta(metaSmiteBlast);
 			EnchantGlow.addGlow(smiteVsBlastProtection);
@@ -87,7 +87,7 @@ public class SwordsGUI {
 		//=--------------------------------{Smite Vs Blast Protection}--------------------------------=\\
 		
 		//=--------------------------------{Looting Vs Protection}--------------------------------=\\
-		if (EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-cooldowns.Looting-VS-Protection")) {
+		if (BountifulReactions.plugin.getConfig().getBoolean("Enabled-cooldowns.Looting-VS-Protection")) {
 		metaLootProt.setLore(Arrays.asList(
 				ChatColor.DARK_AQUA + "Shadow-Step:",
 				"",
@@ -100,13 +100,13 @@ public class SwordsGUI {
 				ChatColor.DARK_AQUA + "Cool-down:",
 				ChatColor.RESET + "" + ChatColor.YELLOW + "" + 
 				ChatColor.UNDERLINE +
-				EnchantifulReactions.plugin.getConfig().getInt("Cooldown-times.Looting-VS-Protection") + 
+				BountifulReactions.plugin.getConfig().getInt("Cooldown-times.Looting-VS-Protection") + 
 				" Seconds"));
 		lootingVsProtection.setItemMeta(metaLootProt);
 		EnchantGlow.addGlow(lootingVsProtection);
 		swordsInv.setItem(1, lootingVsProtection);
 		
-		} else if (EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-chance.Looting-VS-Protection")) {
+		} else if (BountifulReactions.plugin.getConfig().getBoolean("Enabled-chance.Looting-VS-Protection")) {
 			metaLootProt.setLore(Arrays.asList(
 					ChatColor.DARK_AQUA + "Shadow-Step:",
 					"",
@@ -119,7 +119,7 @@ public class SwordsGUI {
 					ChatColor.DARK_AQUA + "Chance:",
 					ChatColor.RESET + "" + ChatColor.YELLOW + "" + 
 					ChatColor.UNDERLINE + "1/" +
-					EnchantifulReactions.plugin.getConfig().getInt("Reaction-chance.Looting-VS-Protection") + 
+					BountifulReactions.plugin.getConfig().getInt("Reaction-chance.Looting-VS-Protection") + 
 					" Chance"));
 			lootingVsProtection.setItemMeta(metaLootProt);
 			EnchantGlow.addGlow(lootingVsProtection);

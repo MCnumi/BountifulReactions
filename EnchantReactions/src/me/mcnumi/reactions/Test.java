@@ -4,7 +4,7 @@ package me.mcnumi.reactions;
 import java.util.HashMap;
 import java.util.Random;
 
-import me.mcnumi.EnchantifulReactions;
+import me.mcnumi.BountifulReactions;
 import me.mcnumi.utils.Cooldowns;
 import me.mcnumi.utils.DamageeInfo;
 import me.mcnumi.utils.DamagerInfo;
@@ -30,17 +30,17 @@ public class Test implements Listener{
 	
 	public HashMap<String, Long> testCooldowns = new HashMap<String, Long>();
 	Random ran = new Random();
-	int playerChance = ran.nextInt(EnchantifulReactions.plugin.getConfig().getInt("Reaction-chance.Looting-VS-Protection"));
+	int playerChance = ran.nextInt(BountifulReactions.plugin.getConfig().getInt("Reaction-chance.Looting-VS-Protection"));
 	DamagerInfo damagerInfo = new DamagerInfo();
 	DamageeInfo damageeInfo = new DamageeInfo();
 	PacketUtils packetUtils = new PacketUtils();
 	Cooldowns cooldowns = new Cooldowns(testCooldowns, 
-			EnchantifulReactions.plugin.getConfig().getInt(
+			BountifulReactions.plugin.getConfig().getInt(
 						"Cooldown-times.Test"));
 	
 	@EventHandler
 	public boolean onDamage(EntityDamageByEntityEvent e) {
-	if (EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-reactions.Test")) {
+	if (BountifulReactions.plugin.getConfig().getBoolean("Enabled-reactions.Test")) {
 		
 		if (e.getDamager() instanceof Player) {
 			Player damager = (Player) e.getDamager();
@@ -56,7 +56,7 @@ public class Test implements Listener{
 				 * 
 				 */
 				
-				if(EnchantifulReactions.plugin.getConfig().getBoolean(
+				if(BountifulReactions.plugin.getConfig().getBoolean(
 						"Enabled-cooldowns.Smite-VS-BlastProtection")) {					
 					
 					
@@ -64,7 +64,7 @@ public class Test implements Listener{
 				 
 						long cooldownSecondsLeft = cooldowns.getSecondsleft((damager.getName()));
 						 
-							if (EnchantifulReactions.plugin.getConfig().getBoolean(
+							if (BountifulReactions.plugin.getConfig().getBoolean(
 									"Enabled-actionbar.Test")) {
 								
 								if(cooldownSecondsLeft>0) {
@@ -76,7 +76,7 @@ public class Test implements Listener{
 									return true;
 								}
 								
-						 } else if (EnchantifulReactions.plugin.getConfig().getBoolean(
+						 } else if (BountifulReactions.plugin.getConfig().getBoolean(
 								 "Enabled-chat.Test")) {
 							 
 							 	if(cooldownSecondsLeft>0) {
@@ -96,14 +96,14 @@ public class Test implements Listener{
 					 * COOLDOWN TIMING
 					 * 
 					 */
-				} if (EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-chance.Test") ||
-						EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-cooldowns.Test")) {
+				} if (BountifulReactions.plugin.getConfig().getBoolean("Enabled-chance.Test") ||
+						BountifulReactions.plugin.getConfig().getBoolean("Enabled-cooldowns.Test")) {
 		        
-					if (EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-cooldowns.Test") || 
+					if (BountifulReactions.plugin.getConfig().getBoolean("Enabled-cooldowns.Test") || 
 							playerChance == ran.nextInt(
-							EnchantifulReactions.plugin.getConfig().getInt("Reaction-chance.Test"))) {
+							BountifulReactions.plugin.getConfig().getInt("Reaction-chance.Test"))) {
 				
-			if (EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-particles.Test")) {
+			if (BountifulReactions.plugin.getConfig().getBoolean("Enabled-particles.Test")) {
 				
 				new BukkitRunnable() {		
 					double phi = 0;
@@ -137,7 +137,7 @@ public class Test implements Listener{
 						}
 						
 					}
-				}.runTaskTimer(EnchantifulReactions.plugin, 0, 1);
+				}.runTaskTimer(BountifulReactions.plugin, 0, 1);
 			}
 				 				 
 				
@@ -156,10 +156,10 @@ public class Test implements Listener{
             	damager.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 200, 1));
 			    damager.teleport(newDamagerLoc);
 			    
-			    if (EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-actionbar.Test")) {	
+			    if (BountifulReactions.plugin.getConfig().getBoolean("Enabled-actionbar.Test")) {	
 				packetUtils.sendActionBar(damager,Lang.SHADOW_STEP_ACTIVATED.toString());	
 				
-			    } else if (EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-chat.Test")) {
+			    } else if (BountifulReactions.plugin.getConfig().getBoolean("Enabled-chat.Test")) {
 			    	damager.sendMessage(Lang.SHADOW_STEP_ACTIVATED.toString());
 			    }
 					}

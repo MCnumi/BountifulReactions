@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-import me.mcnumi.EnchantifulReactions;
+import me.mcnumi.BountifulReactions;
 import me.mcnumi.events.PlayerItemConsume;
 import me.mcnumi.utils.Cooldowns;
 import me.mcnumi.utils.DamageeInfo;
@@ -41,14 +41,14 @@ public class SmiteVSBlastProtection implements Listener {
 	DamagerInfo damagerInfo = new DamagerInfo();
 	DamageeInfo damageeInfo = new DamageeInfo();
 	Cooldowns cooldowns = new Cooldowns(smiteVsBlastCooldowns, 
-			EnchantifulReactions.plugin.getConfig().getInt(
+			BountifulReactions.plugin.getConfig().getInt(
 						"Cooldown-times.Smite-VS-BlastProtection"));
 	
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public boolean onDamage(EntityDamageByEntityEvent e) {
 		
-	if (EnchantifulReactions.plugin.getConfig().getBoolean("Enabled-reactions.Smite-VS-BlastProtection"))	{
+	if (BountifulReactions.plugin.getConfig().getBoolean("Enabled-reactions.Smite-VS-BlastProtection"))	{
 		
 		if (e.getDamager() instanceof Player && e.getEntity() instanceof Player) {
 			
@@ -86,7 +86,7 @@ public class SmiteVSBlastProtection implements Listener {
 								 * 
 								 */
 								
-								if(EnchantifulReactions.plugin.getConfig().getBoolean(
+								if(BountifulReactions.plugin.getConfig().getBoolean(
 										"Enabled-cooldowns.Smite-VS-BlastProtection")) {
 																	 								 
 									
@@ -94,7 +94,7 @@ public class SmiteVSBlastProtection implements Listener {
 								 
 										long cooldownSecondsLeft = cooldowns.getSecondsleft((damagerName));
 
-											if (EnchantifulReactions.plugin.getConfig().getBoolean(
+											if (BountifulReactions.plugin.getConfig().getBoolean(
 													"Enabled-actionbar.Smite-VS-BlastProtection")) {
 												
 												if(cooldownSecondsLeft>0) {
@@ -106,7 +106,7 @@ public class SmiteVSBlastProtection implements Listener {
 													return true;
 												}
 												
-										 } else if (EnchantifulReactions.plugin.getConfig().getBoolean(
+										 } else if (BountifulReactions.plugin.getConfig().getBoolean(
 												 "Enabled-chat.Smite-VS-BlastProtection")) {
 											 
 											 	if(cooldownSecondsLeft>0) {
@@ -128,22 +128,22 @@ public class SmiteVSBlastProtection implements Listener {
 								
 								
 								
-								} if (EnchantifulReactions.plugin.getConfig().getBoolean(
+								} if (BountifulReactions.plugin.getConfig().getBoolean(
 										"Enabled-chance.Smite-VS-BlastProtection") ||
 										
-										EnchantifulReactions.plugin.getConfig().getBoolean(
+										BountifulReactions.plugin.getConfig().getBoolean(
 												"Enabled-cooldowns.Smite-VS-BlastProtection")) {
 									
-									if (EnchantifulReactions.plugin.getConfig().getBoolean(
+									if (BountifulReactions.plugin.getConfig().getBoolean(
 											"Enabled-cooldowns.Smite-VS-BlastProtection") ||
 											
 											playerChance == ran.nextInt(
-											EnchantifulReactions.plugin.getConfig().getInt(
+											BountifulReactions.plugin.getConfig().getInt(
 													"Reaction-chance.Smite-VS-BlastProtection"))) {
 										
 										damagee.addPotionEffect(new PotionEffect(
 												PotionEffectType.GLOWING, 
-												EnchantifulReactions.plugin.getConfig().getInt(
+												BountifulReactions.plugin.getConfig().getInt(
 														"Timed-implosion.Implosion-countdown")*20,
 												1));
 										
@@ -155,14 +155,17 @@ public class SmiteVSBlastProtection implements Listener {
 										 * COUNTDOWN TIMING
 										 * 
 										 */	
+						if(BountifulReactions.plugin.getConfig().getBoolean(
+											"Timed-Implosion.Enabled-countdown")) {
 										
-						int countdownTime = EnchantifulReactions.plugin.getConfig().getInt(
+						int countdownTime = BountifulReactions.plugin.getConfig().getInt(
 										"Timed-implosion.Implosion-countdown");
 											
 						if(smiteVsBlastCountdowns.containsKey(damagee.getName())) {
 										 
 							long countdownSecondsLeft = ((
-								smiteVsBlastCountdowns.get(damagee.getName())/1000) + countdownTime) -
+								smiteVsBlastCountdowns.get(damagee.getName())/1000) +
+								countdownTime) -
 								(System.currentTimeMillis()/1000);
 							
 							/*
@@ -171,29 +174,34 @@ public class SmiteVSBlastProtection implements Listener {
 							 * 
 							 */	
 							
-								if (EnchantifulReactions.plugin.getConfig().getBoolean(
+								if (BountifulReactions.plugin.getConfig().getBoolean(
 									"Enabled-actionbar.Smite-VS-BlastProtection")) {
 									
 									if(countdownSecondsLeft>0) {
 										
-										int countdownTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(
-											EnchantifulReactions.plugin, new BukkitRunnable() {
+										int countdownTask = 
+											Bukkit.getScheduler().scheduleSyncRepeatingTask(
+											BountifulReactions.plugin, new BukkitRunnable() {
 
 											@Override
 											public void run() {
+												
 												while (countdownSecondsLeft>0) {
-													if (EnchantifulReactions.plugin.getConfig().getBoolean(
+													
+													if (BountifulReactions.plugin.getConfig().getBoolean(
 														"Enabled-actionbar.Smite-VS-BlastProtection")) {
 														
 														packetUtils.sendActionBar(damagee,
 																Lang.TIME_IMPLOSION_COUNTDOWN.toString().replace(
 																 "%s", Long.toString(countdownSecondsLeft)));
+														
 																	}
 																}
 													if (countdownSecondsLeft<0) {
 																		
-														Bukkit.getScheduler().cancelTask(playerSchedule.get(
-														    damagee.getName()));
+														Bukkit.getScheduler().cancelTask(
+														playerSchedule.get(damagee.getName()));
+														
 													    playerSchedule.remove(damagee.getName());
 																		}
 																	}
@@ -216,27 +224,33 @@ public class SmiteVSBlastProtection implements Listener {
 									 */	
 									
 														
-												 } else if (EnchantifulReactions.plugin.getConfig().getBoolean(
+												 } else if (BountifulReactions.plugin.getConfig().getBoolean(
 														 "Enabled-chat.Smite-VS-BlastProtection")) {
+													 
 													 	if(countdownSecondsLeft>0) {
 													 		
-											int countdownTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(
-													 EnchantifulReactions.plugin, new BukkitRunnable() {
+											int countdownTask = 
+													 Bukkit.getScheduler().scheduleSyncRepeatingTask(
+													 BountifulReactions.plugin, new BukkitRunnable() {
 
 													@Override
 													public void run() {
+														
 													while (countdownSecondsLeft>0) {
-													 if (EnchantifulReactions.plugin.getConfig().getBoolean(
+														
+													 if (BountifulReactions.plugin.getConfig().getBoolean(
 																"Enabled-chat.Smite-VS-BlastProtection")) {	
+														 
 														damagee.sendMessage(
 												 				Lang.TIME_IMPLOSION_COUNTDOWN.toString().replace(
 												 						"%s", Long.toString(countdownSecondsLeft)));
 													 }
 													}
 														if (countdownSecondsLeft<0) {
-															 Bukkit.getScheduler().cancelTask(playerSchedule.get(
-																	 damagee.getName()));
-									                            playerSchedule.remove(damagee.getName());
+															 Bukkit.getScheduler().
+															 cancelTask(playerSchedule.get(damagee.getName()));
+															 
+									                         playerSchedule.remove(damagee.getName());
 														}
 													}
 											    	  
@@ -255,14 +269,18 @@ public class SmiteVSBlastProtection implements Listener {
 								
 								
 											}
-											
+						
+											smiteVsBlastCountdowns.put(
+													damagee.getName(),
+													System.currentTimeMillis());
+										}
 										/*
 										 * 
 										 * COUNTDOWN TIMING
 										 * 
 										 */
 										
-										smiteVsBlastCountdowns.put(damagee.getName(), System.currentTimeMillis());
+										
 										
 										
 										
@@ -284,12 +302,12 @@ public class SmiteVSBlastProtection implements Listener {
 												}
 												endLoop++;
 												
-											if (endLoop >= EnchantifulReactions.plugin.getConfig().getInt(
+											if (endLoop >= BountifulReactions.plugin.getConfig().getInt(
 													"Timed-implosion.Implosion-countdown"))
 												cancel();
 											}
 											
-										}.runTaskTimer(EnchantifulReactions.plugin, 0, 20);
+										}.runTaskTimer(BountifulReactions.plugin, 0, 20);
 										
 										
 										/*
@@ -300,7 +318,7 @@ public class SmiteVSBlastProtection implements Listener {
 											
 									 if (! playerDrankMilk) {
 										 damagee.getWorld().strikeLightningEffect(damagee.getLocation());
-										 damagee.damage(EnchantifulReactions.plugin.getConfig().getInt(
+										 damagee.damage(BountifulReactions.plugin.getConfig().getInt(
 													"Timed-implosion.Damage"));
 										 
 										 playerItemConsume.getHasPlayerDrankMilk().remove(damagee.getUniqueId());

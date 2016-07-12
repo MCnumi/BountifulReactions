@@ -21,9 +21,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class EnchantifulReactions extends JavaPlugin{
+public class BountifulReactions extends JavaPlugin{
 	
-	public static EnchantifulReactions plugin;
+	public static BountifulReactions plugin;
 	public static YamlConfiguration LANG;
 	public static File LANG_FILE;
 	
@@ -92,8 +92,8 @@ public class EnchantifulReactions extends JavaPlugin{
 	        }
 	    }
 	    Lang.setFile(conf);
-	    EnchantifulReactions.LANG = conf;
-	    EnchantifulReactions.LANG_FILE = lang;
+	    BountifulReactions.LANG = conf;
+	    BountifulReactions.LANG_FILE = lang;
 	    try {
 	        conf.save(getLangFile());
 	    } catch(IOException e) {

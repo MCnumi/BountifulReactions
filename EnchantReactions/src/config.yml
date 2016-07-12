@@ -71,5 +71,6 @@ Cooldown-times:
 # Set the time in seconds for implosion time
 # (Only applies to Smite-VS-BlastProtection)	
 Timed-implosion:
+    Enabled-countdown: true
     Implosion-countdown: 10
     Damage: 4
