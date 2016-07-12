@@ -58,189 +58,189 @@ public class LootingVSProtection implements Listener{
 			ItemStack damageeBoots = damageeInfo.getDamageeBoots(damagee);
 			// =--------------------------Damagee/Damager Variables--------------------------=\\
 					
-					if (damagerInfo.isSword(damagerWeapon) &&
-						damageeInfo.isHelmet(damageeHelmet) ||
-						damageeInfo.isChestplate(damageeChestplate) ||
-						damageeInfo.isLeggings(damageeLeggings) ||
-						damageeInfo.isBoots(damageeBoots)) {
+				if (damagerInfo.isSword(damagerWeapon)
+						&& damageeInfo.isHelmet(damageeHelmet)
+						|| damageeInfo.isChestplate(damageeChestplate)
+						|| damageeInfo.isLeggings(damageeLeggings)
+						|| damageeInfo.isBoots(damageeBoots)) {
 						
-							if (damagerInfo.isItemEnchanted(damagerWeapon, Enchantment.LOOT_BONUS_MOBS) &&
-								damageeInfo.isItemEnchanted(damageeHelmet, Enchantment.PROTECTION_ENVIRONMENTAL) ||
-								damageeInfo.isItemEnchanted(damageeChestplate, Enchantment.PROTECTION_ENVIRONMENTAL) ||
-								damageeInfo.isItemEnchanted(damageeLeggings, Enchantment.PROTECTION_ENVIRONMENTAL) ||
-								damageeInfo.isItemEnchanted(damageeBoots, Enchantment.PROTECTION_ENVIRONMENTAL)) {
+					if (damagerInfo.isItemEnchanted(damagerWeapon, Enchantment.LOOT_BONUS_MOBS) &&
+						damageeInfo.isItemEnchanted(damageeHelmet, Enchantment.PROTECTION_ENVIRONMENTAL) ||
+						damageeInfo.isItemEnchanted(damageeChestplate, Enchantment.PROTECTION_ENVIRONMENTAL) ||
+						damageeInfo.isItemEnchanted(damageeLeggings, Enchantment.PROTECTION_ENVIRONMENTAL) ||
+						damageeInfo.isItemEnchanted(damageeBoots, Enchantment.PROTECTION_ENVIRONMENTAL)) {
 					
+						/*
+						 * 
+						 * COOLDOWN TIMING
+						 * 
+						 */
+								
+						if(BountifulReactions.plugin.getConfig().getBoolean(
+								"Enabled-cooldowns.Looting-VS-Protection")) {
+																	 								 
+									
+							if(cooldowns.isPlayerCooldown(damagerName)) {
+								 
+								long cooldownSecondsLeft = cooldowns.getSecondsleft((damagerName));
+
+								if (BountifulReactions.plugin.getConfig().getBoolean(
+										"Enabled-actionbar.Looting-VS-Protection")) {
+												
+									if(cooldownSecondsLeft>0) {
+													
+										packetUtils.sendActionBar(damager,
+												Lang.SHADOW_STEP_COOLDOWN.toString().replace(
+														"%s", Long.toString(cooldownSecondsLeft)));
+													
+										return true;
+										}
+												
+									} else if (BountifulReactions.plugin.getConfig().getBoolean(
+											"Enabled-chat.Looting-VS-Protection")) {
+											 
+										if(cooldownSecondsLeft>0) {
+									
+											damager.sendMessage(
+													Lang.SHADOW_STEP_COOLDOWN.toString().replace(
+															"%s", Long.toString(cooldownSecondsLeft)));
+									
+											return true;
+											}
+										}
+								} cooldowns.setPlayerCooldown(damagerName);
+									
 								/*
 								 * 
 								 * COOLDOWN TIMING
-								 * 
+							     * 
 								 */
-								
-								if(BountifulReactions.plugin.getConfig().getBoolean(
-										"Enabled-cooldowns.Looting-VS-Protection")) {
-																	 								 
-									
-									if(cooldowns.isPlayerCooldown(damagerName)) {
-								 
-										long cooldownSecondsLeft = cooldowns.getSecondsleft((damagerName));
-
-											if (BountifulReactions.plugin.getConfig().getBoolean(
-													"Enabled-actionbar.Looting-VS-Protection")) {
-												
-												if(cooldownSecondsLeft>0) {
-													
-													packetUtils.sendActionBar(damager,
-															Lang.SHADOW_STEP_COOLDOWN.toString().replace(
-																	"%s", Long.toString(cooldownSecondsLeft)));
-													
-													return true;
-												}
-												
-										 } else if (BountifulReactions.plugin.getConfig().getBoolean(
-												 "Enabled-chat.Looting-VS-Protection")) {
-											 
-											 	if(cooldownSecondsLeft>0) {
-									
-											 		damager.sendMessage(
-											 				Lang.SHADOW_STEP_COOLDOWN.toString().replace(
-											 						"%s", Long.toString(cooldownSecondsLeft)));
-									
-											 		return true;
-											 	}
-										 }
-									} cooldowns.setPlayerCooldown(damagerName);
-									
-									/*
-									 * 
-									 * COOLDOWN TIMING
-									 * 
-									 */
 									
 									
 									
-									} if (BountifulReactions.plugin.getConfig().getBoolean(
-											"Enabled-chance.Looting-VS-Protection") ||
+								} if (BountifulReactions.plugin.getConfig().getBoolean(
+								    	"Enabled-chance.Looting-VS-Protection") ||
 											
-											BountifulReactions.plugin.getConfig().getBoolean(
-													"Enabled-cooldowns.Looting-VS-Protection")) {
+									  BountifulReactions.plugin.getConfig().getBoolean(
+										"Enabled-cooldowns.Looting-VS-Protection")) {
 										
-										if (BountifulReactions.plugin.getConfig().getBoolean(
-												"Enabled-cooldowns.Looting-VS-Protection") ||
+									if (BountifulReactions.plugin.getConfig().getBoolean(
+											"Enabled-cooldowns.Looting-VS-Protection") ||
 												
-												playerChance == ran.nextInt(
-												BountifulReactions.plugin.getConfig().getInt(
-														"Reaction-chance.Looting-VS-Protection"))) {
+											playerChance == ran.nextInt(
+											 BountifulReactions.plugin.getConfig().getInt(
+												"Reaction-chance.Looting-VS-Protection"))) {
 					
 												
-							/*
-							 * 
-							 * PARTICLES
-							 * 
-							 */
+						/*
+						 * 
+						 * PARTICLES
+						 * 
+						 */
 							
-							if (BountifulReactions.plugin.getConfig().getBoolean("Enabled-particles.Looting-VS-Protection")) {
+					if (BountifulReactions.plugin.getConfig().getBoolean("Enabled-particles.Looting-VS-Protection")) {
 
-								new BukkitRunnable() {		
-									double phi = 0;
-									Location particleLoc = damagerLoc; 
-									PacketPlayOutWorldParticles packet;
-									@Override
-									public void run() {
-										phi += Math.PI/10;
+						new BukkitRunnable() {		
+							double phi = 0;
+							Location particleLoc = damagerLoc; 
+							PacketPlayOutWorldParticles packet;
+							@Override
+							public void run() {
+								phi += Math.PI/10;
 										
-										/*
-										 * 
-										 * XYZ COORDS
-										 * 
-										 */
-										for (double theta = 0; theta <= 2*Math.PI; theta += Math.PI/40) {							
-											double r = 1.5;
-											double x = r*Math.cos(theta);
-											double y = r*Math.cos(phi)*-1;
-											double z = r*Math.sin(theta);
-										/*
-										 * 
-										 * XYZ COORDS
-										 * 
-										 */	
-											particleLoc.add(x,y,z);
+								/*
+								 * 
+								 * XYZ COORDS
+								 * 
+								 */
+								for (double theta = 0; theta <= 2*Math.PI; theta += Math.PI/40) {							
+									double r = 1.5;
+									double x = r*Math.cos(theta);
+									double y = r*Math.cos(phi)*-1;
+									double z = r*Math.sin(theta);
+								/*
+								 * 
+								 * XYZ COORDS
+								 * 
+								 */	
+									particleLoc.add(x,y,z);
 											
-											packet = new PacketPlayOutWorldParticles(
-													EnumParticle.SMOKE_NORMAL, true, 
-													(float) particleLoc.getX(), 
-													(float) particleLoc.getY(),
-													(float) particleLoc.getZ(), 0, 0, 0, 0, 2, null);	        
+									packet = new PacketPlayOutWorldParticles(
+											EnumParticle.SMOKE_NORMAL, true, 
+											(float) particleLoc.getX(), 
+											(float) particleLoc.getY(),
+											(float) particleLoc.getZ(), 0, 0, 0, 0, 2, null);	        
 											
-						                    	for (Entity p : damagerLoc.getWorld().getNearbyEntities(
-						                    			damagerLoc, 
-						                    			(float) particleLoc.getX(),
-						                    			(float) particleLoc.getY(), 
-						                    			(float) particleLoc.getZ())) {
+									for (Entity p : damagerLoc.getWorld().getNearbyEntities(
+											damagerLoc, 
+											(float) particleLoc.getX(),
+											(float) particleLoc.getY(), 
+											(float) particleLoc.getZ())) {
 						                    		
-						                    		if (p instanceof Player) { 
-						                    			((CraftPlayer)p).getHandle().
-						                    			playerConnection.sendPacket(packet); 
-						                    		} 
-						                    	}							
-						                    	damagerLoc.subtract(x,y,z);
-										}
-										
-										if (phi > 1*Math.PI) {
-											this.cancel();
-										}
-										
+										if (p instanceof Player) { 
+											((CraftPlayer)p).getHandle().
+											playerConnection.sendPacket(packet); 
+											} 
+										}							
+									damagerLoc.subtract(x,y,z);
 									}
-								}.runTaskTimer(BountifulReactions.plugin, 0, 1);
-							}
+										
+								if (phi > 1*Math.PI) {
+									this.cancel();
+									}
+										
+								}
+						    }.runTaskTimer(BountifulReactions.plugin, 0, 1);
+					    }
 							
-							/*
-							 * 
-							 * PARTICLES
-							 * 
-							 */
+					/*
+					 * 
+					 * PARTICLES
+					 * 
+					 */
 							
 							
-							/*
-							 * 
-							 * DAMAGEE LOCATION
-							 * 
-							 */
+					/*
+					 * 
+					 * DAMAGEE LOCATION
+					 * 
+					 */
 							
 							
-								double newX;
-				                double newZ;
-				                float nang = damageeLoc.getYaw() + 90;
+					double newX;
+					double newZ;
+					float nang = damageeLoc.getYaw() + 90;
 				                	
-				                	if(nang < 0) nang += 360;
+					if(nang < 0) nang += 360;
 				                	
-				                	newX = Math.cos(Math.toRadians(nang));
-				                	newZ = Math.sin(Math.toRadians(nang));
+					newX = Math.cos(Math.toRadians(nang));
+					newZ = Math.sin(Math.toRadians(nang));
 				       
-				                	Location newDamagerLoc = new Location(damageeLoc.getWorld(), 
-				                		damageeLoc.getX() - newX,
-				                		damageeLoc.getY(), 
-				                		damageeLoc.getZ() - newZ,
-				                		damageeLoc.getYaw(), damageeLoc.getPitch());
+					Location newDamagerLoc = new Location(damageeLoc.getWorld(), 
+							damageeLoc.getX() - newX,
+							damageeLoc.getY(), 
+							damageeLoc.getZ() - newZ,
+							damageeLoc.getYaw(), damageeLoc.getPitch());
 									
-						   /*
-							* 
-							* DAMAGEE LOCATION
-							* 
-							*/
+					 /*
+			  		  * 
+				   	  * DAMAGEE LOCATION
+					  * 
+					  */
 									
-				                	damager.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 200, 1));
-								    damager.teleport(newDamagerLoc);
+					damager.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 200, 1));
+					damager.teleport(newDamagerLoc);
 								    
-								    packetUtils.sendActionBar(damager, Lang.SHADOW_STEP_ACTIVATED.toString());
-									packetUtils.sendActionBar(damagee, Lang.SHADOW_STEPPED.toString());
+					packetUtils.sendActionBar(damager, Lang.SHADOW_STEP_ACTIVATED.toString());
+					packetUtils.sendActionBar(damagee, Lang.SHADOW_STEPPED.toString());
 															    							    																				
 							
-								}
 							}
 						}
 					}
 				}
 			}
+		}
 		return false;
 	}
 }

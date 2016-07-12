@@ -8,7 +8,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 * @author gomeow
 */
 public enum Lang {
-	PREFIX("Prefix", "&aE&8R "), 
+	PREFIX("Prefix", "&aB&8R "), 
 	PLAYER_ONLY("Player-only", "&4This command is only usable by players!"),
     SHADOW_STEP_ACTIVATED("Shadow-Step", "&a&lShadow-Step activated"),
     SHADOW_STEPPED("Shadow-Stepped", "&c&lYou've been Shadow-Stepped!"),

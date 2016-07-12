@@ -14,7 +14,6 @@ public class ERInfo implements CommandExecutor{
 	
 	public boolean onCommand(CommandSender sender, Command command,
 			String label, String[] args) {
-		if (command.getName().equalsIgnoreCase("erinfo")) {
 			
 			if (sender instanceof Player) {
 				
@@ -25,7 +24,6 @@ public class ERInfo implements CommandExecutor{
 							Lang.PLAYER_ONLY.toString());
 					return true;
 				}
-			}
 		return false;
 	}
 }

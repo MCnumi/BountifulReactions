@@ -63,11 +63,11 @@ public class SmiteVSBlastProtection implements Listener {
 			ItemStack damageeBoots = damageeInfo.getDamageeBoots(damagee);
 			// =--------------------------Damagee/Damager Variables--------------------------=\\
 					
-					if (damagerInfo.isSword(damagerWeapon) &&
-						damageeInfo.isHelmet(damageeHelmet) ||
-						damageeInfo.isChestplate(damageeChestplate) ||
-						damageeInfo.isLeggings(damageeLeggings) ||
-						damageeInfo.isBoots(damageeBoots)) {
+				if (damagerInfo.isSword(damagerWeapon)
+						&& damageeInfo.isHelmet(damageeHelmet)
+						|| damageeInfo.isChestplate(damageeChestplate)
+						|| damageeInfo.isLeggings(damageeLeggings)
+						|| damageeInfo.isBoots(damageeBoots)) {
 					
 						if (damagerInfo.isItemEnchanted(damagerWeapon, Enchantment.DAMAGE_UNDEAD) &&
 						    damageeInfo.isItemEnchanted(damageeHelmet, Enchantment.PROTECTION_EXPLOSIONS) ||

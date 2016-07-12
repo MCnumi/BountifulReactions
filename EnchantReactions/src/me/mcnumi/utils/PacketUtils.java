@@ -10,11 +10,17 @@ import org.bukkit.entity.Player;
 
 public class PacketUtils {
 	
-	public void sendActionBar(Player p, String msg) {
+	/**
+	 * 
+	 * Sends an action-bar to specified player.
+	 * @param player Player to send the action-bar to.
+	 * @param msg Message to be sent.
+	 */
+	public void sendActionBar(Player player, String msg) {
       String s = ChatColor.translateAlternateColorCodes('&', msg);
       IChatBaseComponent icbc = ChatSerializer.a("{\"text\": \"" + s + "\"}");
       PacketPlayOutChat bar = new PacketPlayOutChat(icbc, (byte)2);
-      ((CraftPlayer)p).getHandle().playerConnection.sendPacket(bar);
+      ((CraftPlayer)player).getHandle().playerConnection.sendPacket(bar);
     }
     
 }

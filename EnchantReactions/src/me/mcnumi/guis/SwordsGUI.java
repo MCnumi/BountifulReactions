@@ -48,10 +48,10 @@ public class SwordsGUI {
 				ChatColor.GRAY + "and struck by lighting if he does not drink milk within",
 				ChatColor.GRAY + String.valueOf(
 						BountifulReactions.plugin.getConfig().getInt("Timed-implosion.Implosion-countdown")) +
-						" seconds! "
-				+ "Dealing " + String.valueOf(
+						" seconds "
+				+ "dealing " + String.valueOf(
 						BountifulReactions.plugin.getConfig().getInt("Timed-implosion.Damage")) +
-				" damage.",
+				" damage!",
 				"",
 				ChatColor.DARK_AQUA + "Cool-down:",
 				ChatColor.RESET + "" + ChatColor.YELLOW + "" + 
@@ -70,10 +70,10 @@ public class SwordsGUI {
 					ChatColor.GRAY + "and struck by lighting if he does not drink milk within",
 					ChatColor.GRAY + String.valueOf(
 							BountifulReactions.plugin.getConfig().getInt("Timed-implosion.Implosion-countdown")) +
-							" seconds! "
-					+ "Dealing " + String.valueOf(
+							" seconds "
+					+ "dealing " + String.valueOf(
 							BountifulReactions.plugin.getConfig().getInt("Timed-implosion.Damage")) +
-					" damage.",
+					" damage!",
 					"",
 					ChatColor.DARK_AQUA + "Chance:",
 					ChatColor.RESET + "" + ChatColor.YELLOW + "" + 
