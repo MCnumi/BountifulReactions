@@ -5,7 +5,10 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>Bountiful Reactions</name>
   <description>Spigot Enchantment Plugin</description>
+  
   <build>
+  <finalName>${project.artifactId}</finalName>
+        <defaultGoal>clean package install</defaultGoal>
     <sourceDirectory>src</sourceDirectory>
     <resources>
       <resource>
@@ -17,6 +20,7 @@
     </resources>
     <plugins>
       <plugin>
+          <!-- Maven compiler -->
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.1</version>
         <configuration>
@@ -26,4 +30,34 @@
       </plugin>
     </plugins>
   </build>
+  <repositories> 
+    <repository>
+    <!-- Spigot maven repository -->
+        <id>spigot-repo</id>
+        <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+    </repository>
+</repositories>
+<dependencies>
+    <!--Spigot API-->
+    <dependency>
+           <groupId>org.spigotmc</groupId>
+           <artifactId>spigot-api</artifactId>
+           <version>1.9.4-R0.1-SNAPSHOT</version>
+           <scope>provided</scope>
+    </dependency>
+    <!--Bukkit API-->
+    <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>1.9.4-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+    </dependency>
+    <!--Spigot-->
+    <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>1.9.4-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+    </dependency>
+</dependencies>
 </project>

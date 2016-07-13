@@ -6,7 +6,6 @@ import java.util.Random;
 
 import me.mcnumi.BountifulReactions;
 import me.mcnumi.utils.Cooldowns;
-import me.mcnumi.utils.DamageeInfo;
 import me.mcnumi.utils.DamagerInfo;
 import me.mcnumi.utils.Lang;
 import me.mcnumi.utils.PacketUtils;
@@ -31,8 +30,6 @@ public class Test implements Listener{
 	public HashMap<String, Long> testCooldowns = new HashMap<String, Long>();
 	Random ran = new Random();
 	int playerChance = ran.nextInt(BountifulReactions.plugin.getConfig().getInt("Reaction-chance.Looting-VS-Protection"));
-	DamagerInfo damagerInfo = new DamagerInfo();
-	DamageeInfo damageeInfo = new DamageeInfo();
 	PacketUtils packetUtils = new PacketUtils();
 	Cooldowns cooldowns = new Cooldowns(testCooldowns, 
 			BountifulReactions.plugin.getConfig().getInt(
@@ -44,7 +41,7 @@ public class Test implements Listener{
 		
 		if (e.getDamager() instanceof Player) {
 			Player damager = (Player) e.getDamager();
-			ItemStack damagerWeapon = damagerInfo.getDamagerHeldItem(damager);
+			ItemStack damagerWeapon = DamagerInfo.getDamagerHeldItem(damager);
 			Location damagerLoc = damager.getLocation();
 			Entity damagee = e.getEntity();
 			Location damageeLoc = damagee.getLocation();	
