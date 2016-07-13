@@ -88,8 +88,8 @@ public class SmiteVSBlastProtection implements Listener {
 									
 									if(cooldowns.isPlayerCooldown(damagerName)) {
 								 
-										long cooldownSecondsLeft = cooldowns.getSecondsleft((damagerName));
-
+										long cooldownSecondsLeft = cooldowns.getSecondsleft((damagerName));										
+										
 											if (BountifulReactions.plugin.getConfig().getBoolean(
 													"Enabled-actionbar.Smite-VS-BlastProtection")) {
 												

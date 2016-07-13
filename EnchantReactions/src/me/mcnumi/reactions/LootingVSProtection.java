@@ -139,7 +139,7 @@ public class LootingVSProtection implements Listener{
 							
 					if (BountifulReactions.plugin.getConfig().getBoolean("Enabled-particles.Looting-VS-Protection")) {
 
-						new BukkitRunnable() {		
+						new BukkitRunnable() {	
 							double phi = 0;
 							Location particleLoc = damagerLoc; 
 							PacketPlayOutWorldParticles packet;
@@ -152,6 +152,7 @@ public class LootingVSProtection implements Listener{
 								 * XYZ COORDS
 								 * 
 								 */
+								
 								for (double theta = 0; theta <= 2*Math.PI; theta += Math.PI/40) {							
 									double r = 1.5;
 									double x = r*Math.cos(theta);
@@ -160,6 +161,9 @@ public class LootingVSProtection implements Listener{
 								/*
 								 * 
 								 * XYZ COORDS
+								 * 
+								 * use a for loop for coordinates variable.
+								 * don't suck.
 								 * 
 								 */	
 									particleLoc.add(x,y,z);
@@ -181,7 +185,7 @@ public class LootingVSProtection implements Listener{
 											playerConnection.sendPacket(packet); 
 											} 
 										}							
-									damagerLoc.subtract(x,y,z);
+									particleLoc.subtract(x,y,z);
 									}
 										
 								if (phi > 1*Math.PI) {
